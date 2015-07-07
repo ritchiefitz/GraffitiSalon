@@ -13,17 +13,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="/GraffitiSalon/style.css"> <!-- WORKING file PATH -->
-        <link rel="stylesheet" href="../js/graffiti.js">
+        <link rel="stylesheet" href="/style.css"> <!-- WORKING file PATH -->
+        <link rel="stylesheet" href="/js/graffiti.js">
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
                 <header class="col-md-12">
-                    <div class="logo navbar-left"><a href="/GraffitiSalon">Graffiti Salon</a></div>
+                    <div class="logo navbar-left"><a href="/">Graffiti Salon</a></div>
                     <nav class="menu navbar-right">
                         <ul>
-                            <li><a href="/GraffitiSalon/login.jsp">Login</a></li>
+                            <li><a href="/login.jsp">Login</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">About</a></li>
                         </ul>

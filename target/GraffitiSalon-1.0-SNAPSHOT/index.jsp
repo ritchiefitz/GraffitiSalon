@@ -17,7 +17,7 @@
                     Salon
                 </h2>
                 <p class="special-message">Make an account and start making appointments today.</p>
-                <a href="/GraffitiSalon/register.jsp" class="logo-font">Register</a>
+                <a href="/register.jsp" class="logo-font">Register</a>
             </div>
             <div class="blocks">
                 <div class="block"></div>

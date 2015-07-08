@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4 text-center">
                         <p class="special-message">Need an account?</p>
-                        <a href="/register.jsp" class="logo-font">Register</a>
+                        <a href="register.jsp" class="logo-font">Register</a>
                     </div>
                 </div>
             </div>

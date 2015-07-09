@@ -14,7 +14,7 @@ and open the template in the editor.
 body {
     font-family: 'Rokkitt', serif;
     font-size: 20px;
-    background: url(images/graffiti-salon.jpg) no-repeat center center fixed;
+    background: url(../images/graffiti-salon.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

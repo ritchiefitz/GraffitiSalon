@@ -20,13 +20,13 @@
                     You have an appointment on Thursday at 5:30PM
                 </div>
                 <h3>Create Appointment</h3>
-                <form class="form-horizontal" action="GraffitiController" method="post">
+                <form class="form-horizontal" action="Appointment" method="post">
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="barber">Barber:</label>
                         <div class="col-md-9">
-                            <!-- TODO? pull values from database -->
+                            <!-- TODO? pull values from database, use attribute? -->
                             <select name="barber" id="barber">
-                                <option value="sean">Sean</option>
+                                <option value="Fat Albert">Fat Albert</option>
                                 <option value="paul">Paul</option>
                                 <option value="john">John</option>
                                 <option value="adam">Adam</option>

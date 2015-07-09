@@ -6,6 +6,7 @@
 package com.mycompany.barbershop;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * 
+ * @author Kendall
  */
-@WebServlet(name = "Registration", urlPatterns = {"/Registration"})
-public class Registration extends HttpServlet {
+@WebServlet(name = "Appointment", urlPatterns = {"/Appointment"})
+public class Appointment extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +36,7 @@ public class Registration extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
         String DB_URL = "jdbc:mysql://localhost/barbershop";
         
@@ -45,7 +46,7 @@ public class Registration extends HttpServlet {
         Connection conn = null;
         Statement stmt = null;
         
-       try{
+        try{
       //STEP 2: Register JDBC driver
       Class.forName("com.mysql.jdbc.Driver");
 
@@ -54,36 +55,36 @@ public class Registration extends HttpServlet {
       conn = DriverManager.getConnection(DB_URL, USER, PASS);
       System.out.println("Connected database successfully...");
       
-      //Getting information from form
-      String firstName = (String) request.getParameter("fname");
-      String lastName = (String) request.getParameter("lname");
-      String gender = (String) request.getParameter("gender");
-      int isMale;
-      if (gender.equals("male")) { isMale = 1; }else {isMale = 0;}
-      String phone_num = (String) request.getParameter("phone_num");
-      //TODO Check if email already exists
-      String email = (String) request.getParameter("email");
-      //TODO Hash the password
-      String password = (String) request.getParameter("password");
-
-//      System.out.println("Insert into user_table(firstName, lastName, isMale, phone, email, password) values (" + firstName + ", " + 
-//                lastName + ", " + isMale + ", " + phone_num + ", " + email 
-//                 + ", " + password + ");");
-      
-     String sql = "Insert into user_table(firstName, lastName, isMale, phone, email, password) values ('" + firstName + "', '" + 
-                lastName + "', " + isMale + ", '" + phone_num + "', '" + email 
-                 + "', '" + password + "');";
-      
       //STEP 4: Execute a query
-      System.out.println("Creating statement...");
-      stmt = conn.createStatement(); 
+      System.out.println("Inserting records into the table...");
+      stmt = conn.createStatement();
+      
+      String barber_name = (String) request.getParameter("barber");
+      int barber_id = 0;
+      
+      //Query to get barber id
+      String sql = "SELECT * FROM barber_table WHERE name = '" + barber_name + "';";
+      ResultSet rs = stmt.executeQuery(sql);
+      while(rs.next()){
+         barber_id = rs.getInt("barber_id");
+      }
+      
+      //TODO get user_id from session and add into sql request
+      
+      String day = (String) request.getParameter("day");
+      String time = (String) request.getParameter("time");
+      String type = (String) request.getParameter("type");
+      
+      System.out.println(barber_id + "          " + day + time + type);
+    //seanmonday8:00am15::standard
+      
+      sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, end_time, date)" +
+                   "VALUES (" + barber_id + ", " + 5 + ", '" + time + "', 'hardcoded time', '" + day + "')"; 
+      //System.out.println(sql);
       
       stmt.executeUpdate(sql);
-      
-      request.setAttribute("user", firstName + " " + lastName);
-      request.getRequestDispatcher("/home.jsp").forward(request, response);
-      
-     
+      System.out.println("Inserted appointment into the table...");
+
    }catch(SQLException se){
       //Handle errors for JDBC
       se.printStackTrace();

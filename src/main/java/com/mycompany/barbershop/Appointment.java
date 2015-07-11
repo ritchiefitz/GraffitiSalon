@@ -65,16 +65,20 @@ public class Appointment extends HttpServlet {
       while(rs.next()){
          barber_id = rs.getInt("barber_id");
       }
-      
-      //TODO get user_id from session and add into sql request
-      
+
       String day = (String) request.getParameter("day");
       String time = (String) request.getParameter("time");
       String type = (String) request.getParameter("type");
       String user_id = (String) request.getSession().getAttribute("user_id");
       
-      System.out.println(barber_name + user_id + day + time + type);
-    //seanmonday8:00am15::standard
+      //Check to see if an appointent is already made for that barber at that time
+       sql = "select * from appointment_table where barber_id ='" + barber_id + "' and start_time ='" + time + "' and date ='" + day + "';";
+       rs = stmt.executeQuery(sql);
+       
+       if(rs.next()){
+       request.setAttribute("appointmentError", "Scheduling conflict. Please schedule another time");   
+       request.getRequestDispatcher("/home.jsp").forward(request, response);
+       }
       
       sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, end_time, date)" +
                    "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', 'hardcoded time', '" + day + "')"; 

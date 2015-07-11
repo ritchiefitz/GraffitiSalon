@@ -24,7 +24,7 @@ if(session.getAttribute("name") == null){
                 <div class="appointment-message">
                     <!-- TODO add message here ${appointmentMessage} -->
                     <!-- Added Default for now -->
-                    ${appointmentMessage}
+                    ${appointmentMessage} ${appointmentError}
                 </div>
                 <h3>Create Appointment</h3>
                 <form class="form-horizontal" action="Appointment" method="post">

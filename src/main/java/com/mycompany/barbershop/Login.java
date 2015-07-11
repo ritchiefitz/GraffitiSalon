@@ -56,7 +56,6 @@ public class Login extends HttpServlet {
         
         //CHECKING DB FOR USER BY LASTNAME
         String email = request.getParameter("email");
-        System.out.println("Email: " + email);
         String sql = "select * from user_table where email ='" + email + "';";
         ResultSet rs = stmt.executeQuery(sql);
         

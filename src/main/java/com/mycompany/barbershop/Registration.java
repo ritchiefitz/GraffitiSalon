@@ -39,8 +39,8 @@ public class Registration extends HttpServlet {
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
         String DB_URL = "jdbc:mysql://localhost/barbershop";
         
-        String USER = "root";
-        String PASS = "";
+        String USER = "admint7Jze9t";
+        String PASS = "5kkJIvZVANR9";
         
         Connection conn = null;
         Statement stmt = null;

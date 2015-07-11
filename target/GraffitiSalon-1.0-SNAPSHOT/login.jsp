@@ -16,7 +16,8 @@
                 <div class="row">
                     <div class="col-md-8 text-left">
                         <p class="special-message">Already have an account?</p>
-                        <form action="GraffitiController" method="post">
+                        <p class="special-message"> ${loginError} <p>
+                        <form action="Login" method="post">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="email" class="form-control" placeholder="john@doe.com">

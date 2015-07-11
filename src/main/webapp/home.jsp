@@ -6,6 +6,13 @@
 
 <%@page import="org.joda.time.DateTime"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+//allow access only if session exists
+String user = null;
+if(session.getAttribute("user") == null){
+    response.sendRedirect("login.jsp");
+}
+%>
 
 <jsp:include page="modules/header.jsp" />
 
@@ -13,7 +20,8 @@
     <main class="col-md-12 user-home-page">
         <div class="row">
             <div class="col-md-8 clear-bg center-block">
-                <h3>Appointments</h3>
+                <h3>Welcome, ${name}</h3>
+                <h3>Appointments </h3>
                 <div class="appointment-message">
                     <!-- TODO add message here ${message} -->
                     <!-- Added Default for now -->

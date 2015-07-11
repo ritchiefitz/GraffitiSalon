@@ -36,11 +36,22 @@ public class Registration extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //STEP 1: Create a connection
-        String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-        String DB_URL = "jdbc:mysql://localhost/barbershop";
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        String DB_URL = null;
+        
+        // Detect if we are on openshift or local environment.
+        String db_host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+        if (db_host != null) {
+            String db_port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+            DB_URL = "jdbc:mysql://" + db_host + ":" + db_port + "/barbershop";
+        } else {
+            DB_URL = "jdbc:mysql://localhost/barbershop";
+        }
         
         String USER = "admint7Jze9t";
-        String PASS = "5kkJIvZVANR9";
+        String PASS = "5kkJlvZVANR9";
+//        String USER = "root";
+//        String PASS = "";
         
         Connection conn = null;
         Statement stmt = null;

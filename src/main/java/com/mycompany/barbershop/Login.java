@@ -66,10 +66,10 @@ public class Login extends HttpServlet {
             //Login them in and set user_id as session variable
             String id = rs.getString("user_id");
             String firstName = rs.getString("firstName");
-            System.out.println("Id: " + id + " Name: " + firstName);
             
             HttpSession session = request.getSession();
             session.setAttribute("name", firstName);
+            session.setAttribute("user_id", id);
             //setting session to expiry in 30 mins
             session.setMaxInactiveInterval(30*60);
             

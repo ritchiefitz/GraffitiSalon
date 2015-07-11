@@ -22,9 +22,9 @@ if(session.getAttribute("name") == null){
                 <h3>Welcome, ${name}</h3>
                 <h3>Appointments </h3>
                 <div class="appointment-message">
-                    <!-- TODO add message here ${message} -->
+                    <!-- TODO add message here ${appointmentMessage} -->
                     <!-- Added Default for now -->
-                    You have an appointment on Thursday at 5:30PM
+                    ${appointmentMessage}
                 </div>
                 <h3>Create Appointment</h3>
                 <form class="form-horizontal" action="Appointment" method="post">
@@ -46,12 +46,12 @@ if(session.getAttribute("name") == null){
                         <div class="col-md-9">
                             <!-- TODO? pull only the current and following days  -->
                             <select name="day" id="day">
-                                <option value="monday">Monday</option>
-                                <option value="tuesday">Tuesday</option>
-                                <option value="wednesday">Wednesday</option>
-                                <option value="thursday">Thursday</option>
-                                <option value="friday">Friday</option>
-                                <option value="saturday">Saturday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
                             </select>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,18 +52,14 @@ public class Appointment extends HttpServlet {
       Class.forName("com.mysql.jdbc.Driver");
 
       //STEP 3: Open a connection
-      System.out.println("Connecting to a selected database...");
       conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      System.out.println("Connected database successfully...");
       
       //STEP 4: Execute a query
-      System.out.println("Inserting records into the table...");
       stmt = conn.createStatement();
-      
-      String barber_name = (String) request.getParameter("barber");
-      int barber_id = 0;
-      
+ 
       //Query to get barber id
+      int barber_id = 0;
+      String barber_name = (String) request.getParameter("barber");
       String sql = "SELECT * FROM barber_table WHERE name = '" + barber_name + "';";
       ResultSet rs = stmt.executeQuery(sql);
       while(rs.next()){
@@ -74,16 +71,22 @@ public class Appointment extends HttpServlet {
       String day = (String) request.getParameter("day");
       String time = (String) request.getParameter("time");
       String type = (String) request.getParameter("type");
+      String user_id = (String) request.getSession().getAttribute("user_id");
       
-      System.out.println(barber_id + "          " + day + time + type);
+      System.out.println(barber_name + user_id + day + time + type);
     //seanmonday8:00am15::standard
       
       sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, end_time, date)" +
-                   "VALUES (" + barber_id + ", " + 5 + ", '" + time + "', 'hardcoded time', '" + day + "')"; 
+                   "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', 'hardcoded time', '" + day + "')"; 
       //System.out.println(sql);
       
       stmt.executeUpdate(sql);
-      System.out.println("Inserted appointment into the table...");
+      
+      HttpSession session = request.getSession(true);
+      String name = (String) session.getAttribute("name");
+      request.setAttribute("appointmentMessage", "Appointment successfully created for " + name + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
+      
+      request.getRequestDispatcher("/home.jsp").forward(request, response);
 
    }catch(SQLException se){
       //Handle errors for JDBC

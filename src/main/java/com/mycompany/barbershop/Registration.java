@@ -35,7 +35,7 @@ public class Registration extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        //STEP 1: Create a connection
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
         String DB_URL = "jdbc:mysql://localhost/barbershop";
         
@@ -50,39 +50,31 @@ public class Registration extends HttpServlet {
       Class.forName("com.mysql.jdbc.Driver");
 
       //STEP 3: Open a connection
-      System.out.println("Connecting to a selected database...");
       conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      System.out.println("Connected database successfully...");
       
       //Getting information from form
       String firstName = (String) request.getParameter("fname");
       String lastName = (String) request.getParameter("lname");
       String gender = (String) request.getParameter("gender");
-      int isMale;
+      //Setting boolean value for database (mysql equivilent is a tinyint
+      int isMale = 0;
       if (gender.equals("male")) { isMale = 1; }else {isMale = 0;}
       String phone_num = (String) request.getParameter("phone_num");
       //TODO Check if email already exists
       String email = (String) request.getParameter("email");
       //TODO Hash the password
       String password = (String) request.getParameter("password");
-
-//      System.out.println("Insert into user_table(firstName, lastName, isMale, phone, email, password) values (" + firstName + ", " + 
-//                lastName + ", " + isMale + ", " + phone_num + ", " + email 
-//                 + ", " + password + ");");
       
      String sql = "Insert into user_table(firstName, lastName, isMale, phone, email, password) values ('" + firstName + "', '" + 
                 lastName + "', " + isMale + ", '" + phone_num + "', '" + email 
                  + "', '" + password + "');";
       
       //STEP 4: Execute a query
-      System.out.println("Creating statement...");
       stmt = conn.createStatement(); 
-      
       stmt.executeUpdate(sql);
       
       request.setAttribute("user", firstName + " " + lastName);
-      request.getRequestDispatcher("/home.jsp").forward(request, response);
-      
+      request.getRequestDispatcher("/home.jsp").forward(request, response);      
      
    }catch(SQLException se){
       //Handle errors for JDBC

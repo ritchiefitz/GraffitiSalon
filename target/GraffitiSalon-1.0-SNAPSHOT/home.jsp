@@ -8,8 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 //allow access only if session exists
-String user = null;
-if(session.getAttribute("user") == null){
+if(session.getAttribute("name") == null){
     response.sendRedirect("login.jsp");
 }
 %>

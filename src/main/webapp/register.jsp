@@ -52,13 +52,13 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="password">Password:</label>
                         <div class="col-md-9">
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="verify_pass">Verify Password:</label>
                         <div class="col-md-9">
-                            <input type="text" name="verify_pass" id="verify_pass" class="form-control">
+                            <input type="password" name="verify_pass" id="verify_pass" class="form-control">
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Register">

@@ -37,70 +37,69 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //SETTING UP CONNECTION TO DATABASE
-        String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         String DB_URL = null;
-        
+
         // Detect if we are on openshift or local environment.
         String db_host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
         if (db_host != null) {
             String db_port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
             DB_URL = "jdbc:mysql://" + db_host + ":" + db_port + "/barbershop";
         } else {
-            DB_URL = "jdbc:mysql://localhost/barbershop";
+            DB_URL = "jdbc:mysql://127.0.0.1/barbershop";
         }
-        
+
         String USER = "admint7Jze9t";
         String PASS = "5kkJIvZVANR9";
-        
+
         Connection conn = null;
         Statement stmt = null;
-        
-        try{
-        //CONNECTING TO DB
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL, USER, PASS);
-        stmt = conn.createStatement();    
-        
-        //CHECKING DB FOR USER BY LASTNAME
-        String email = request.getParameter("email");
-        String sql = "select * from user_table where email ='" + email + "';";
-        ResultSet rs = stmt.executeQuery(sql);
-        
-        while(rs.next()){
-            
-        if (request.getParameter("password").equals(rs.getString("password"))){
-            //Login them in and set user_id as session variable
-            String id = rs.getString("user_id");
-            String firstName = rs.getString("firstName");
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("name", firstName);
-            session.setAttribute("user_id", id);
-            //setting session to expiry in 30 mins
-            session.setMaxInactiveInterval(30*60);
-            
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
-            
-        } else {
-            //Redirect them to the Login page with error messsage
-            System.out.println("Wrong password! Redirect them!");
-            request.setAttribute("loginError", "Incorrect email or password");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
-        
-        }
-        
-        }catch(SQLException | ClassNotFoundException se){
-   }finally{
-      try{
-         if(conn!=null)
-            conn.close();
-      }catch(SQLException se){
-      }//end finally try
-   }//end try
-        
+
+        try {
+            //CONNECTING TO DB
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+
+            //CHECKING DB FOR USER BY LASTNAME
+            String email = request.getParameter("email");
+            String sql = "select * from user_table where email ='" + email + "';";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                if (request.getParameter("password").equals(rs.getString("password"))) {
+                    //Login them in and set user_id as session variable
+                    String id = rs.getString("user_id");
+                    String firstName = rs.getString("firstName");
+
+                    HttpSession session = request.getSession();
+                    session.setAttribute("name", firstName);
+                    session.setAttribute("user_id", id);
+                    //setting session to expiry in 30 mins
+                    session.setMaxInactiveInterval(30 * 60);
+
+                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                } else {
+                    //Redirect them to the Login page with error messsage
+                    System.out.println("Wrong password! Redirect them!");
+                    request.setAttribute("loginError", "Incorrect email or password");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+
+            }
+
+        } catch (SQLException | ClassNotFoundException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+            }//end finally try
+        }//end try
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

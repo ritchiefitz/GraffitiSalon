@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * 
+ *
  */
 @WebServlet(name = "Registration", urlPatterns = {"/Registration"})
 public class Registration extends HttpServlet {
@@ -38,75 +38,79 @@ public class Registration extends HttpServlet {
         //STEP 1: Create a connection
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         String DB_URL = null;
-        
+
         // Detect if we are on openshift or local environment.
         String db_host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
         if (db_host != null) {
             String db_port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
             DB_URL = "jdbc:mysql://" + db_host + ":" + db_port + "/barbershop";
         } else {
-            DB_URL = "jdbc:mysql://localhost/barbershop";
+            DB_URL = "jdbc:mysql://127.0.0.1/barbershop";
         }
-        
+
         String USER = "admint7Jze9t";
         String PASS = "5kkJlvZVANR9";
-//        String USER = "root";
-//        String PASS = "";
-        
+
         Connection conn = null;
         Statement stmt = null;
-        
-       try{
-      //STEP 2: Register JDBC driver
-      Class.forName("com.mysql.jdbc.Driver");
 
-      //STEP 3: Open a connection
-      conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      
-      //Getting information from form
-      String firstName = (String) request.getParameter("fname");
-      String lastName = (String) request.getParameter("lname");
-      String gender = (String) request.getParameter("gender");
-      //Setting boolean value for database (mysql equivilent is a tinyint
-      int isMale = 0;
-      if (gender.equals("male")) { isMale = 1; }else {isMale = 0;}
-      String phone_num = (String) request.getParameter("phone_num");
-      //TODO Check if email already exists
-      String email = (String) request.getParameter("email");
-      //TODO Hash the password
-      String password = (String) request.getParameter("password");
-      
-     String sql = "Insert into user_table(firstName, lastName, isMale, phone, email, password) values ('" + firstName + "', '" + 
-                lastName + "', " + isMale + ", '" + phone_num + "', '" + email 
-                 + "', '" + password + "');";
-      
-      //STEP 4: Execute a query
-      stmt = conn.createStatement(); 
-      stmt.executeUpdate(sql);
-      
-      request.setAttribute("user", firstName + " " + lastName);
-      request.getRequestDispatcher("/home.jsp").forward(request, response);      
-     
-   }catch(SQLException se){
-      //Handle errors for JDBC
-      se.printStackTrace();
-   }catch(Exception e){
-      //Handle errors for Class.forName
-      e.printStackTrace();
-   }finally{
-      //finally block used to close resources
-      try{
-         if(stmt!=null)
-            conn.close();
-      }catch(SQLException se){
-      }// do nothing
-      try{
-         if(conn!=null)
-            conn.close();
-      }catch(SQLException se){
-         se.printStackTrace();
-      }//end finally try
-   }//end try
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            //Getting information from form
+            String firstName = (String) request.getParameter("fname");
+            String lastName = (String) request.getParameter("lname");
+            String gender = (String) request.getParameter("gender");
+            //Setting boolean value for database (mysql equivilent is a tinyint
+            int isMale = 0;
+            if (gender.equals("male")) {
+                isMale = 1;
+            } else {
+                isMale = 0;
+            }
+            String phone_num = (String) request.getParameter("phone_num");
+            //TODO Check if email already exists
+            String email = (String) request.getParameter("email");
+            //TODO Hash the password
+            String password = (String) request.getParameter("password");
+
+            String sql = "Insert into user_table(firstName, lastName, isMale, phone, email, password) values ('" + firstName + "', '"
+                    + lastName + "', " + isMale + ", '" + phone_num + "', '" + email
+                    + "', '" + password + "');";
+
+            //STEP 4: Execute a query
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+            request.setAttribute("user", firstName + " " + lastName);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

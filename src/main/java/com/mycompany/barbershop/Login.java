@@ -51,6 +51,8 @@ public class Login extends HttpServlet {
             DB_URL = "jdbc:mysql://127.0.0.1/barbershop";
         }
 
+//        String USER = "root";
+//        String PASS = "";
         String USER = "admint7Jze9t";
         String PASS = "5kkJIvZVANR9";
 

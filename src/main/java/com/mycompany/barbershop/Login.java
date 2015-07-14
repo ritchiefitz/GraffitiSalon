@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
 //        String USER = "root";
 //        String PASS = "";
         String USER = "admint7Jze9t";
-        String PASS = "5kkJIvZVANR9";
+        String PASS = "5kkJlvZVANR9";
 
         Connection conn = null;
         Statement stmt = null;

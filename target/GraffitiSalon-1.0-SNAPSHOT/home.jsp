@@ -4,7 +4,6 @@
     Author     : ritchiefitzgerald
 --%>
 
-<%@page import="org.joda.time.DateTime"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 //allow access only if session exists

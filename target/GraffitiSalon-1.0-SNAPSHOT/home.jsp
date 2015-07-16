@@ -33,10 +33,8 @@ if(session.getAttribute("name") == null){
                             <!-- TODO? pull values from database, use attribute? -->
                             <select name="barber" id="barber">
                                 <option value="Fat Albert">Fat Albert</option>
-                                <option value="paul">Paul</option>
-                                <option value="john">John</option>
-                                <option value="adam">Adam</option>
-                                <option value="joe">Joe</option>
+                                <option value="Babara Goatee">Babara Goatee</option>
+                                <option value="Ruben Studdard">Ruben Studdard</option>
                             </select>
                         </div>
                     </div>

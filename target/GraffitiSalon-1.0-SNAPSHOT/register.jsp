@@ -17,13 +17,13 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="fname">First Name:</label>
                         <div class="col-md-9">
-                            <input type="text" name="fname" id="fname" class="form-control" placeholder="John">
+                            <input type="text" name="fname" id="fname" class="form-control" placeholder="John" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="lname">Last Name:</label>
                         <div class="col-md-9">
-                            <input type="text" name="lname" id="lname" class="form-control" placeholder="Doe">
+                            <input type="text" name="lname" id="lname" class="form-control" placeholder="Doe" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -40,25 +40,25 @@
                         <div class="col-md-9">
                             <!--pattern="(\d{3}) \d{3}-\d{4}"-->
                             <input type="text" name="phone_num"
-                            id="phone_num" class="form-control" placeholder="(123) 456-7890">
+                            id="phone_num" class="form-control" placeholder="(123) 456-7890" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="email">Email:</label>
                         <div class="col-md-9">
-                            <input type="email" name="email" id="email" class="form-control" placeholder="john@doe.com">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="john@doe.com" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="password">Password:</label>
                         <div class="col-md-9">
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="verify_pass">Verify Password:</label>
                         <div class="col-md-9">
-                            <input type="password" name="verify_pass" id="verify_pass" class="form-control">
+                            <input type="password" name="verify_pass" id="verify_pass" class="form-control" required>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Register">

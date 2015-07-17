@@ -5,6 +5,7 @@
  */
 package com.mycompany.barbershop;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -12,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,16 +71,22 @@ public class ShowTime extends HttpServlet {
         
         //String barber_id = request.getParameter("barber");
         
-        Integer barber_id = 0;
+        String barber_id = request.getParameter("id");
         
+        List<Time> jsonList = new ArrayList<>();
         String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id;
         ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                barber_id = rs.getInt("barber_id");
+                Time t = new Time();
+                t.start_time = rs.getString("start_time");
+                t.end_time = rs.getString("end_time");
+                jsonList.add(t);
             }
             
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
-    
+            String json = new Gson().toJson(jsonList);
+            
+            response.getWriter().write(json);
+
     
     } catch (SQLException se) {
             //Handle errors for JDBC

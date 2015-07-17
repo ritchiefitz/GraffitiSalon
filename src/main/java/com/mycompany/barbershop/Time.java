@@ -11,7 +11,6 @@ package com.mycompany.barbershop;
  */
 public class Time {
     public String start_time;
-    public String end_time;
 
 
     public String getStart_time() {
@@ -22,13 +21,6 @@ public class Time {
         this.start_time = start_time;
     }
 
-    public String getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
-    }
     
     
 }

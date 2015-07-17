@@ -79,7 +79,6 @@ public class ShowTime extends HttpServlet {
             while (rs.next()) {
                 Time t = new Time();
                 t.start_time = rs.getString("start_time");
-                t.end_time = rs.getString("end_time");
                 jsonList.add(t);
             }
             

@@ -17,14 +17,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Kendall
+ * @author paul
  */
-@WebServlet(name = "Appointment", urlPatterns = {"/Appointment"})
-public class Appointment extends HttpServlet {
+@WebServlet(name = "ShowTime", urlPatterns = {"/ShowTime"})
+public class ShowTime extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +36,7 @@ public class Appointment extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         String DB_URL = null;
 
@@ -57,7 +56,8 @@ public class Appointment extends HttpServlet {
         Statement stmt = null;
 
         try {
-            //STEP 2: Register JDBC driver
+        
+        //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
 
             //STEP 3: Open a connection
@@ -65,44 +65,21 @@ public class Appointment extends HttpServlet {
 
             //STEP 4: Execute a query
             stmt = conn.createStatement();
-
-            //Query to get barber id
-            int barber_id = 0;
-            String barber_name = (String) request.getParameter("barber");
-            String sql = "SELECT * FROM barber_table WHERE name = '" + barber_name + "';";
-            ResultSet rs = stmt.executeQuery(sql);
+        
+        //String barber_id = request.getParameter("barber");
+        
+        Integer barber_id = 0;
+        
+        String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id;
+        ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 barber_id = rs.getInt("barber_id");
             }
-
-            String day = (String) request.getParameter("day");
-            String time = (String) request.getParameter("time");
-            String type = (String) request.getParameter("type");
-            String user_id = (String) request.getSession().getAttribute("user_id");
-
-            //Check to see if an appointent is already made for that barber at that time
-            sql = "select * from appointment_table where barber_id ='" + barber_id + "' and start_time ='" + time + "' and date ='" + day + "';";
-            rs = stmt.executeQuery(sql);
-
-            if (rs.next()) {
-                request.setAttribute("appointmentError", "Scheduling conflict. Please schedule another time");
-                request.getRequestDispatcher("/home.jsp").forward(request, response);
-                
-            } else {
-                sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, end_time, date)"
-                    + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', 'hardcoded time', '" + day + "')";
-            }
             
-
-            stmt.executeUpdate(sql);
-
-            HttpSession session = request.getSession(true);
-            String name = (String) session.getAttribute("name");
-            request.setAttribute("appointmentMessage", "Appointment successfully created for " + name + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
-
             request.getRequestDispatcher("/home.jsp").forward(request, response);
-
-        } catch (SQLException se) {
+    
+    
+    } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
         } catch (Exception e) {
@@ -124,8 +101,8 @@ public class Appointment extends HttpServlet {
                 se.printStackTrace();
             }//end finally try
         }//end try
-    }
 
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -166,3 +143,4 @@ public class Appointment extends HttpServlet {
     }// </editor-fold>
 
 }
+

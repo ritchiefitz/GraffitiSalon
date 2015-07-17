@@ -89,8 +89,8 @@ public class Appointment extends HttpServlet {
                 request.getRequestDispatcher("/home.jsp").forward(request, response);
                 
             } else {
-                sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, end_time, date)"
-                    + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', 'hardcoded time', '" + day + "')";
+                sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, date)"
+                    + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', '" + day + "')";
             }
             
 

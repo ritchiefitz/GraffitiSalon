@@ -60,25 +60,41 @@ public class Login extends HttpServlet {
 
         Connection conn = null;
         Statement stmt = null;
-
+        System.out.println("0");
         try {
             //CONNECTING TO DB
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
 
-            //CHECKING DB FOR USER BY LASTNAME
+            //CHECKING DB FOR USER BY EMAIL
             String email = request.getParameter("email");
-            String sql = "select * from user_table inner join appointment_table on user_table.user_id = appointment_table.user_id inner join barber_table ON appointment_table.barber_id = barber_table.barber_id where email ='" + email + "';";
+            String sql = null;
+            boolean doIt = true;
+ 
+            sql = "select * from user_table inner join appointment_table on user_table.user_id = appointment_table.user_id inner join barber_table ON appointment_table.barber_id = barber_table.barber_id where email ='" + email + "';";
+            
             ResultSet rs = stmt.executeQuery(sql);
-
+            
+            if (!rs.next()){
+                System.out.println("New user");
+                doIt = false;
+                sql = "select * from user_table where email ='" + email + "';";  
+                rs = stmt.executeQuery(sql);
+            }else {
+             System.out.println("Old user");   
+             rs = stmt.executeQuery(sql);
+            }
+            
             while (rs.next()) {
                 String passwordToHash = request.getParameter("password");
-
+                System.out.println("IN HERE"); 
                 String generatedPassword = null;
                 try {
+                    System.out.println("3");
                     // Create MessageDigest instance for MD5
                     MessageDigest md = MessageDigest.getInstance("MD5");
+                    System.out.println("4");
                     //Add password bytes to digest
                     md.update(passwordToHash.getBytes());
                     //Get the hash's bytes
@@ -86,9 +102,11 @@ public class Login extends HttpServlet {
             //This bytes[] has bytes in decimal format;
                     //Convert it to hexadecimal format
                     StringBuilder sb = new StringBuilder();
+                    System.out.println("5");
                     for (int i = 0; i < bytes.length; i++) {
                         sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
                     }
+                    System.out.println("6");
                     //Get complete hashed password in hex format
                     generatedPassword = sb.toString();
                 } catch (NoSuchAlgorithmException e) {
@@ -106,9 +124,10 @@ public class Login extends HttpServlet {
                     //setting session to expiry in 30 mins
                     session.setMaxInactiveInterval(30 * 60);
                     
-                     request.setAttribute("yourAppointments", rs.getString("date") + " at " + rs.getString("start_time") + " with " + rs.getString("name"));              
+                    if(doIt){
+                    request.setAttribute("yourAppointments", rs.getString("date") + " at " + rs.getString("start_time") + " with " + rs.getString("name"));              
+                    }
                     
-
                     request.getRequestDispatcher("home.jsp").forward(request, response);
                 } else {
                     //Redirect them to the Login page with error messsage
@@ -118,6 +137,9 @@ public class Login extends HttpServlet {
                 }
 
             }
+            System.out.println("Wrong password! Redirect them!");
+                    request.setAttribute("loginError", "Incorrect email or password");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } catch (SQLException | ClassNotFoundException se) {
             se.printStackTrace();

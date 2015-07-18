@@ -112,28 +112,28 @@ public class Appointment extends HttpServlet {
 
             
             //TEXTING API
-            String firstName = (String) request.getSession().getAttribute("name");
-           request.setAttribute("appointmentMessage", "Appointment successfully created for " + firstName + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
-           
-           
-           String phonenum = "";
-           sql = "SELECT * FROM user_table WHERE firstName='" + firstName + "';";
-           rs = stmt.executeQuery(sql);
-           while (rs.next()) {
-               phonenum = rs.getString("phone");
-           }
-           
-           TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
-
-           // Build a filter for the MessageList
-           List<NameValuePair> params = new ArrayList<>();
-           params.add(new BasicNameValuePair("Body", "Thank you for choosing Graffitti! "
-                   + "Your next appointment will be on " + day + " at " + time + "."));
-           params.add(new BasicNameValuePair("To", "+1" + phonenum));
-           params.add(new BasicNameValuePair("From", "+19784345321"));
-
-           MessageFactory messageFactory = client.getAccount().getMessageFactory();
-           Message message = messageFactory.create(params);
+//            String firstName = (String) request.getSession().getAttribute("name");
+//           request.setAttribute("appointmentMessage", "Appointment successfully created for " + firstName + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
+//           
+//           
+//           String phonenum = "";
+//           sql = "SELECT * FROM user_table WHERE firstName='" + firstName + "';";
+//           rs = stmt.executeQuery(sql);
+//           while (rs.next()) {
+//               phonenum = rs.getString("phone");
+//           }
+//           
+//           TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+//
+//           // Build a filter for the MessageList
+//           List<NameValuePair> params = new ArrayList<>();
+//           params.add(new BasicNameValuePair("Body", "Thank you for choosing Graffitti! "
+//                   + "Your next appointment will be on " + day + " at " + time + "."));
+//           params.add(new BasicNameValuePair("To", "+1" + phonenum));
+//           params.add(new BasicNameValuePair("From", "+19784345321"));
+//
+//           MessageFactory messageFactory = client.getAccount().getMessageFactory();
+//           Message message = messageFactory.create(params);
             
             
            request.getRequestDispatcher("/home.jsp").forward(request, response);

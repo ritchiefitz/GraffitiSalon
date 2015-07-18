@@ -34,6 +34,12 @@ header a {
     color: #FFFFFF;
 }
 
+header.col-md-12 {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
 footer.col-md-12 {
     position: fixed;
     bottom: 0;
@@ -123,7 +129,7 @@ h2 {
 
 .main-wrapper {
     float: none;
-    margin: 30px auto;
+    margin: 78px auto;
 }
 
 /*Login Page*/
@@ -160,6 +166,8 @@ h2 {
     margin: 15px auto;
     background-color: #000;
     box-shadow: 0 0 15px;
+    width: 740px;
+    height: 420px;
 }
 
 #prev,

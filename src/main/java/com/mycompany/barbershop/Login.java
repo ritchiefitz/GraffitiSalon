@@ -137,9 +137,6 @@ public class Login extends HttpServlet {
                 }
 
             }
-            System.out.println("Wrong password! Redirect them!");
-            request.setAttribute("loginError", "Incorrect email or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } catch (SQLException | ClassNotFoundException se) {
             se.printStackTrace();

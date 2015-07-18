@@ -27,7 +27,6 @@
                     <nav class="menu navbar-right">
                         <ul>
                             <li><a class="login-link" href="login.jsp">Login</a></li>
-                            <li><a href="#">Contact</a></li>
                             <li><a href="app.jsp">App</a></li>
                         </ul>
                     </nav>

@@ -41,7 +41,10 @@
                     <p>That is it!!</p>
                     <p>
                         Once a client makes an appointment they will receive a text message
-                        a half hour before their appointment.
+                        for their appointment. Checkout the video below to see our app in action.
+                    </p>
+                    <p>
+                        
                     </p>
                     <p>
                         Now you and your client no longer have to manually keep track. Just

@@ -150,3 +150,53 @@ h2 {
 .user-home-page .control-label+.col-md-9 {
     padding-top: 7px;
 }
+
+/* App Page */
+.slideshow-wrapper {
+    position: relative;
+}
+
+.slideshow {
+    margin: 15px auto;
+    background-color: #000;
+    box-shadow: 0 0 15px;
+}
+
+#prev,
+#next {
+    display: inline-block;
+    background: url(../images/arrows.png) no-repeat;
+    position: absolute;
+    top: 158px;
+    text-indent: -99999px;
+    width: 53px;
+    height: 100px;
+    z-index: 100;
+}
+
+#prev {
+    left: -8px;
+}
+
+#next {
+    background-position: top right;
+    right: -5px;
+}
+
+.total-rating {
+    display: inline-block;
+    font-size: 3em;
+    vertical-align: top;
+}
+
+.star-rating {
+    display: inline-block;
+    vertical-align: top;
+    background: url(../images/stars.png) no-repeat;
+    background-size: 100%;
+    width: 170px;
+    height: 35px;
+    position: relative;
+    top: 20px;
+    left: 15px;
+}

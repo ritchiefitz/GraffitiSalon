@@ -6,6 +6,8 @@
 package com.mycompany.barbershop;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -76,11 +78,31 @@ public class Registration extends HttpServlet {
             //TODO Check if email already exists
             String email = (String) request.getParameter("email");
             //TODO Hash the password
-            String password = (String) request.getParameter("password");
+            String passwordToHash = (String) request.getParameter("password");
+
+            String generatedPassword = null;
+            try {
+                // Create MessageDigest instance for MD5
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                //Add password bytes to digest
+                md.update(passwordToHash.getBytes());
+                //Get the hash's bytes
+                byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+                //Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.length; i++) {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                //Get complete hashed password in hex format
+                generatedPassword = sb.toString();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
 
             String sql = "Insert into user_table(firstName, lastName, isMale, phone, email, password) values ('" + firstName + "', '"
                     + lastName + "', " + isMale + ", '" + phone_num + "', '" + email
-                    + "', '" + password + "');";
+                    + "', '" + generatedPassword + "');";
 
             //STEP 4: Execute a query
             stmt = conn.createStatement();

@@ -7,6 +7,8 @@ package com.mycompany.barbershop;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -71,7 +73,29 @@ public class Login extends HttpServlet {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                if (request.getParameter("password").equals(rs.getString("password"))) {
+                String passwordToHash = request.getParameter("password");
+
+                String generatedPassword = null;
+                try {
+                    // Create MessageDigest instance for MD5
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    //Add password bytes to digest
+                    md.update(passwordToHash.getBytes());
+                    //Get the hash's bytes
+                    byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+                    //Convert it to hexadecimal format
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < bytes.length; i++) {
+                        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                    }
+                    //Get complete hashed password in hex format
+                    generatedPassword = sb.toString();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+
+                if (generatedPassword.equals(rs.getString("password"))) {
                     //Login them in and set user_id as session variable
                     String id = rs.getString("user_id");
                     String firstName = rs.getString("firstName");

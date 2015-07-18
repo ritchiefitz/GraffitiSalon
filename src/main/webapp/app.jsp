@@ -13,6 +13,7 @@
             <div class="col-md-12 clear-bg center-block">
                 <div class="slideshow-wrapper">
                     <div class="slideshow">
+                        <div class="slides"><iframe width="740" height="421" src="https://www.youtube.com/embed/yDUIT84X1I8?rel=0" frameborder="0" allowfullscreen></iframe></div>
                         <div class="slides"><img src="images/home.jpg" alt=""></div>
                         <div class="slides"><img src="images/register.jpg" alt=""></div>
                         <div class="slides"><img src="images/login.jpg" alt=""></div>
@@ -41,10 +42,10 @@
                     <p>That is it!!</p>
                     <p>
                         Once a client makes an appointment they will receive a text message
-                        for their appointment. Checkout the video below to see our app in action.
+                        for their appointment. Checkout the video to see our app in action.
                     </p>
                     <p>
-                        
+                        <strong>Disclaimer:</strong> Our trial version of the api only sends texts to numbers saved on our api account.
                     </p>
                     <p>
                         Now you and your client no longer have to manually keep track. Just

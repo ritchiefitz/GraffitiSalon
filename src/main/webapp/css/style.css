@@ -201,7 +201,7 @@ hr {
     background-color: #000;
     box-shadow: 0 0 15px;
     width: 740px;
-    height: 420px;
+    height: 418px !important;
 }
 
 #prev,

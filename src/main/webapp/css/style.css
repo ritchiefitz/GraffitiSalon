@@ -157,6 +157,14 @@ h2 {
     padding-top: 7px;
 }
 
+.user-home-page .form-group {
+    margin-bottom: 0;
+}
+
+.user-home-page input[type*='submit'] {
+    margin-top: 0;
+}
+
 /* App Page */
 .slideshow-wrapper {
     position: relative;

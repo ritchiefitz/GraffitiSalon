@@ -5,6 +5,9 @@
  */
 package com.mycompany.barbershop;
 
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -12,12 +15,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  *
@@ -26,6 +33,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Appointment", urlPatterns = {"/Appointment"})
 public class Appointment extends HttpServlet {
 
+    
+    public static final String ACCOUNT_SID = "AC3d9ec5782c8ef8c5bce0ff65a128d745";
+    public static final String AUTH_TOKEN = "27d5eb0f01ac51826b4a505205d859dc";  
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -91,16 +102,41 @@ public class Appointment extends HttpServlet {
             } else {
                 sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, date)"
                     + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', '" + day + "')";
-            }
-            
+            }            
 
             stmt.executeUpdate(sql);
 
-            HttpSession session = request.getSession(true);
+            HttpSession session = request.getSession(false);
             String name = (String) session.getAttribute("name");
             request.setAttribute("appointmentMessage", "Appointment successfully created for " + name + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
 
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
+            
+            //TEXTING API
+            String firstName = (String) request.getSession().getAttribute("name");
+           request.setAttribute("appointmentMessage", "Appointment successfully created for " + firstName + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
+           
+           
+           String phonenum = "";
+           sql = "SELECT * FROM user_table WHERE firstName='" + firstName + "';";
+           rs = stmt.executeQuery(sql);
+           while (rs.next()) {
+               phonenum = rs.getString("phone");
+           }
+           
+           TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+
+           // Build a filter for the MessageList
+           List<NameValuePair> params = new ArrayList<>();
+           params.add(new BasicNameValuePair("Body", "Thank you for choosing Graffitti! "
+                   + "Your next appointment will be on " + day + " at " + time + "."));
+           params.add(new BasicNameValuePair("To", "+1" + phonenum));
+           params.add(new BasicNameValuePair("From", "+19784345321"));
+
+           MessageFactory messageFactory = client.getAccount().getMessageFactory();
+           Message message = messageFactory.create(params);
+            
+            
+           request.getRequestDispatcher("/home.jsp").forward(request, response);
 
         } catch (SQLException se) {
             //Handle errors for JDBC

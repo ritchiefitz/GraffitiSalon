@@ -1,7 +1,6 @@
-com/mycompany/barbershop/Login.class
-com/mycompany/barbershop/ShowTime.class
-com/mycompany/barbershop/Registration.class
-com/mycompany/barbershop/Logout.class
-.netbeans_automatic_build
-com/mycompany/barbershop/Appointment.class
-com/mycompany/barbershop/Time.class
+com\mycompany\barbershop\Login.class
+com\mycompany\barbershop\Logout.class
+com\mycompany\barbershop\ShowTime.class
+com\mycompany\barbershop\Time.class
+com\mycompany\barbershop\Registration.class
+com\mycompany\barbershop\Appointment.class

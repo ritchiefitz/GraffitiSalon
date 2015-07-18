@@ -33,10 +33,9 @@ import org.apache.http.message.BasicNameValuePair;
 @WebServlet(name = "Appointment", urlPatterns = {"/Appointment"})
 public class Appointment extends HttpServlet {
 
-    
     public static final String ACCOUNT_SID = "AC3d9ec5782c8ef8c5bce0ff65a128d745";
-    public static final String AUTH_TOKEN = "27d5eb0f01ac51826b4a505205d859dc";  
-   
+    public static final String AUTH_TOKEN = "27d5eb0f01ac51826b4a505205d859dc";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -98,11 +97,11 @@ public class Appointment extends HttpServlet {
             if (rs.next()) {
                 request.setAttribute("appointmentError", "Scheduling conflict. Please schedule another time");
                 request.getRequestDispatcher("/home.jsp").forward(request, response);
-                
+
             } else {
                 sql = "INSERT INTO appointment_table(barber_id, user_id, start_time, date)"
-                    + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', '" + day + "')";
-            }            
+                        + "VALUES (" + barber_id + ", " + user_id + ", '" + time + "', '" + day + "')";
+            }
 
             stmt.executeUpdate(sql);
 
@@ -110,7 +109,6 @@ public class Appointment extends HttpServlet {
             String name = (String) session.getAttribute("name");
             request.setAttribute("appointmentMessage", "Appointment successfully created for " + name + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
 
-            
             //TEXTING API
 //            String firstName = (String) request.getSession().getAttribute("name");
 //           request.setAttribute("appointmentMessage", "Appointment successfully created for " + firstName + " with " + barber_name + " for a " + type + " at " + time + " on " + day);
@@ -134,9 +132,7 @@ public class Appointment extends HttpServlet {
 //
 //           MessageFactory messageFactory = client.getAccount().getMessageFactory();
 //           Message message = messageFactory.create(params);
-            
-            
-           request.getRequestDispatcher("/home.jsp").forward(request, response);
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
 
         } catch (SQLException se) {
             //Handle errors for JDBC

@@ -39,7 +39,7 @@ public class ShowTime extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         String DB_URL = null;
 
@@ -59,8 +59,8 @@ public class ShowTime extends HttpServlet {
         Statement stmt = null;
 
         try {
-        
-        //STEP 2: Register JDBC driver
+
+            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
 
             //STEP 3: Open a connection
@@ -68,27 +68,25 @@ public class ShowTime extends HttpServlet {
 
             //STEP 4: Execute a query
             stmt = conn.createStatement();
-        
+
         //String barber_id = request.getParameter("barber");
-        
-        String barber_id = request.getParameter("id");
-        String date = request.getParameter("date");
-        
-        List<Time> jsonList = new ArrayList<>();
-        String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id + " AND date='" + date + "'";
-        ResultSet rs = stmt.executeQuery(sql);
+            String barber_id = request.getParameter("id");
+            String date = request.getParameter("date");
+
+            List<Time> jsonList = new ArrayList<>();
+            String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id + " AND date='" + date + "'";
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Time t = new Time();
                 t.start_time = rs.getString("start_time");
                 jsonList.add(t);
             }
-            
+
             String json = new Gson().toJson(jsonList);
-            
+
             response.getWriter().write(json);
 
-    
-    } catch (SQLException se) {
+        } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
         } catch (Exception e) {
@@ -112,7 +110,9 @@ public class ShowTime extends HttpServlet {
         }//end try
 
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -152,4 +152,3 @@ public class ShowTime extends HttpServlet {
     }// </editor-fold>
 
 }
-

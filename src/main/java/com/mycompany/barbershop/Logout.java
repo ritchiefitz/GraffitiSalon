@@ -31,13 +31,13 @@ public class Logout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if (request.getSession(false) != null){
+
+        if (request.getSession(false) != null) {
             request.getSession().invalidate();
         }
-        
+
         response.sendRedirect("login.jsp");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

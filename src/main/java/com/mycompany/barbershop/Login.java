@@ -71,24 +71,24 @@ public class Login extends HttpServlet {
             String email = request.getParameter("email");
             String sql = null;
             boolean doIt = true;
- 
+
             sql = "select * from user_table inner join appointment_table on user_table.user_id = appointment_table.user_id inner join barber_table ON appointment_table.barber_id = barber_table.barber_id where email ='" + email + "';";
-            
+
             ResultSet rs = stmt.executeQuery(sql);
-            
-            if (!rs.next()){
+
+            if (!rs.next()) {
                 System.out.println("New user");
                 doIt = false;
-                sql = "select * from user_table where email ='" + email + "';";  
+                sql = "select * from user_table where email ='" + email + "';";
                 rs = stmt.executeQuery(sql);
-            }else {
-             System.out.println("Old user");   
-             rs = stmt.executeQuery(sql);
+            } else {
+                System.out.println("Old user");
+                rs = stmt.executeQuery(sql);
             }
-            
+
             while (rs.next()) {
                 String passwordToHash = request.getParameter("password");
-                System.out.println("IN HERE"); 
+                System.out.println("IN HERE");
                 String generatedPassword = null;
                 try {
                     System.out.println("3");
@@ -99,7 +99,7 @@ public class Login extends HttpServlet {
                     md.update(passwordToHash.getBytes());
                     //Get the hash's bytes
                     byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
+                    //This bytes[] has bytes in decimal format;
                     //Convert it to hexadecimal format
                     StringBuilder sb = new StringBuilder();
                     System.out.println("5");
@@ -123,11 +123,11 @@ public class Login extends HttpServlet {
                     session.setAttribute("user_id", id);
                     //setting session to expiry in 30 mins
                     session.setMaxInactiveInterval(30 * 60);
-                    
-                    if(doIt){
-                    request.setAttribute("yourAppointments", rs.getString("date") + " at " + rs.getString("start_time") + " with " + rs.getString("name"));              
+
+                    if (doIt) {
+                        request.setAttribute("yourAppointments", rs.getString("date") + " at " + rs.getString("start_time") + " with " + rs.getString("name"));
                     }
-                    
+
                     request.getRequestDispatcher("home.jsp").forward(request, response);
                 } else {
                     //Redirect them to the Login page with error messsage
@@ -138,8 +138,8 @@ public class Login extends HttpServlet {
 
             }
             System.out.println("Wrong password! Redirect them!");
-                    request.setAttribute("loginError", "Incorrect email or password");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("loginError", "Incorrect email or password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } catch (SQLException | ClassNotFoundException se) {
             se.printStackTrace();

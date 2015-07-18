@@ -72,9 +72,10 @@ public class ShowTime extends HttpServlet {
         //String barber_id = request.getParameter("barber");
         
         String barber_id = request.getParameter("id");
+        String date = request.getParameter("date");
         
         List<Time> jsonList = new ArrayList<>();
-        String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id;
+        String sql = "SELECT * FROM appointment_table WHERE barber_id=" + barber_id + " AND date='" + date + "'";
         ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Time t = new Time();

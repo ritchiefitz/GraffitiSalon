@@ -17,7 +17,7 @@ if(session.getAttribute("name") == null){
 <div class="row">
     <main class="col-md-12 user-home-page">
         <div class="row">
-            <div class="col-md-8 clear-bg center-block">
+            <div class="col-md-7 clear-bg">
                 <h3>Welcome, ${name}</h3>
                 <h3>Appointments </h3>
                 <div class="appointment-message">
@@ -32,8 +32,8 @@ if(session.getAttribute("name") == null){
                         <div class="col-md-9">
                             <!-- TODO? pull values from database, use attribute? -->
                             <select name="barber" id="barber">
-                                <option value="Fat Albert">Fat Albert</option>
                                 <option value="Babara Goatee">Babara Goatee</option>
+                                <option value="Fat Albert">Fat Albert</option>
                                 <option value="Ruben Studdard">Ruben Studdard</option>
                             </select>
                         </div>
@@ -89,6 +89,12 @@ if(session.getAttribute("name") == null){
                     <input type="hidden" name="action" value="appointment">
                     <input type="submit" class="btn btn-primary" value="Make Appointment">
                 </form>
+            </div>
+            <div class="col-md-4 col-md-offset-1 clear-bg">
+                <div class="barber-name"></div>
+                <div class="schedule-day"></div>
+                <hr>
+                <div class="available-times"></div>
             </div>
         </div>
     </main>

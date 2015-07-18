@@ -10,6 +10,11 @@ $(document).ready(function () {
     if ($('.slideshow').length > 0) {
         slideshowSettings();
     }
+    
+    if ($('.user-home-page').length > 0) {
+        $('.login-link').text('Logout');
+        $('.login-link').attr('href', 'Logout');
+    }
 });
 
 function slideshowSettings() {

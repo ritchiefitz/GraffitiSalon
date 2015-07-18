@@ -8,7 +8,7 @@
 
 <jsp:include page="modules/header.jsp" />
 <div class="row">
-    <main class="col-md-12 user-home-page">
+    <main class="col-md-12 app-page">
         <div class="row">
             <div class="col-md-12 clear-bg center-block">
                 <div class="slideshow-wrapper">

@@ -26,7 +26,7 @@
                     <div class="logo navbar-left"><a href="index.jsp">Graffiti Salon</a></div>
                     <nav class="menu navbar-right">
                         <ul>
-                            <li><a href="login.jsp">Login</a></li>
+                            <li><a class="login-link" href="login.jsp">Login</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="app.jsp">App</a></li>
                         </ul>

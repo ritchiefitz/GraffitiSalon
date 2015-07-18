@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
 
             //CHECKING DB FOR USER BY LASTNAME
             String email = request.getParameter("email");
-            String sql = "select * from user_table where email ='" + email + "';";
+            String sql = "select * from user_table inner join appointment_table on user_table.user_id = appointment_table.user_id inner join barber_table ON appointment_table.barber_id = barber_table.barber_id where email ='" + email + "';";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -105,6 +105,9 @@ public class Login extends HttpServlet {
                     session.setAttribute("user_id", id);
                     //setting session to expiry in 30 mins
                     session.setMaxInactiveInterval(30 * 60);
+                    
+                     request.setAttribute("yourAppointments", rs.getString("date") + " at " + rs.getString("start_time") + " with " + rs.getString("name"));              
+                    
 
                     request.getRequestDispatcher("home.jsp").forward(request, response);
                 } else {

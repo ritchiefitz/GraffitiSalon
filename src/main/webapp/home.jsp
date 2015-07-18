@@ -21,6 +21,7 @@ if(session.getAttribute("name") == null){
                 <h3>Welcome, ${name}</h3>
                 <h3>Appointments </h3>
                 <div class="appointment-message">
+                    ${yourAppointments}
                     <!-- TODO add message here ${appointmentMessage} -->
                     <!-- Added Default for now -->
                     ${appointmentMessage} ${appointmentError}
